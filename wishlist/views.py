@@ -1,9 +1,8 @@
 import datetime
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from wishlist.models import BarangWishlist
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core import serializers
-from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -48,6 +47,8 @@ def register(request):
             return redirect('wishlist:login')
     
     context = {'form':form}
+    if request.user.is_authenticated:
+        return redirect(reverse('wishlist:show_wishlist')) 
     return render(request, 'register.html', context)
 
 def login_user(request):
@@ -63,6 +64,8 @@ def login_user(request):
         else:
             messages.info(request, 'Username atau Password salah!')
     context = {}
+    if request.user.is_authenticated:
+        return redirect(reverse('wishlist:show_wishlist')) 
     return render(request, 'login.html', context)
 
 def logout_user(request):
