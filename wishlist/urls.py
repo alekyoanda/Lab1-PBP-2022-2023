@@ -11,5 +11,7 @@ urlpatterns = [
     path('xml/<int:id>', show_xml_by_id, name="show_xml_by_id"),
     path('register/', register, name="register"),
     path('login/', login_user, name='login'),
-    path('logout/', logout_user, name='logout')
+    path('logout/', logout_user, name='logout'),
+    path('ajax/', show_wishlist_ajax, name='ajax'),
+    path('ajax/submit', json_to_database_async, name='json_ajax'),
 ]
